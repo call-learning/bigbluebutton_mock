@@ -183,8 +183,13 @@ class BackOfficeController extends DataController
         $entityManager = $this->getDoctrine()->getManager();
 
         $notified = [];
+        $changehostname = getenv('RUNNING_IN_DOCKER_CI');
         foreach ($entities as $entity) {
             $url = htmlspecialchars_decode($entity->getMetadataValue('bn-recording-ready-url'));
+            if ($changehostname) {
+                $newhost = $this->getParameter('app.local_ci_behat_test_host');
+                $url = str_replace('localhost:8000', $newhost.':8000', $url);
+            }
             $jwtparams = JWT::encode((object) [
                 'record_id' => $entity->getRecordID(),
             ], self::DEFAULT_SHARED_SECRET, 'HS256');
@@ -231,4 +236,7 @@ class BackOfficeController extends DataController
 
         return new XmlResponse((object) ['reset' => true]);
     }
+
+
+
 }

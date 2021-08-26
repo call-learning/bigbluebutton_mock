@@ -29,6 +29,7 @@ COPY application /var/www
 
 RUN composer install -n \
     && rm -rf /root/.composer
+ENV RUNNING_IN_DOCKER_CI=1
 
 CMD ["symfony", "server:start", "--port=80", "--no-tls", "--allow-http"]
 ENTRYPOINT ["/entrypoint.sh"]
