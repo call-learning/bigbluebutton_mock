@@ -28,7 +28,7 @@ final class Version20210827141345 extends AbstractMigration
         $this->addSql('INSERT INTO attendee (id, meeting_id_id, user_id, role, full_name, is_listening_only, has_joined_voice, has_video, client_type, custom_data, is_presenter) SELECT id, meeting_id_id, user_id, role, full_name, is_listening_only, has_joined_voice, has_video, client_type, custom_data, is_presenter FROM __temp__attendee');
         $this->addSql('DROP TABLE __temp__attendee');
         $this->addSql('CREATE INDEX IDX_1150D5671775DC57 ON attendee (meeting_id_id)');
-        $this->addSql('ALTER TABLE meeting ADD COLUMN server_id VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE meeting ADD COLUMN server_id VARCHAR(255)');
         $this->addSql('DROP INDEX IDX_BB532B5367433D9C');
         $this->addSql('DROP INDEX UNIQ_BB532B534DFD750C');
         $this->addSql('CREATE TEMPORARY TABLE __temp__recording AS SELECT id, meeting_id, record_id, published, protected, is_breakout, start_time, end_time, participants, metadata, playback, headless, imported, recording, broker_notified FROM recording');

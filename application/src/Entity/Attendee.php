@@ -76,7 +76,7 @@ class Attendee
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $serverID;
+    private $serverID = '';
 
     public function getId(): ?int
     {

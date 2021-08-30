@@ -34,10 +34,12 @@ And the following endpoints exist to view the current meetings and recordings:
 
 Check requirements:
 
+    cd application
     symfony check:requirements
 
 Setup the db:
 
+    rm var/data.db (optional)
     php bin/console doctrine:database:create
     php bin/console make:migration
     php bin/console doctrine:migrations:migrate

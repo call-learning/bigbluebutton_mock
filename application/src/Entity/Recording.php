@@ -92,7 +92,7 @@ class Recording
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $serverID;
+    private $serverID = '';
 
     public function __construct()
     {
