@@ -28,7 +28,7 @@ class ApiController extends DataController
     public function status(): XmlResponse
     {
         return new XmlResponse((object) [
-            'version' => 0.9,
+            'version' => 1.0,
         ]);
     }
 
