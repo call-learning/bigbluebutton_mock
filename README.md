@@ -19,6 +19,12 @@ For example, add the following to your config.php after the `$CFG->wwwroot` line
    define('TEST_MOD_BIGBLUEBUTTONBN_MOCK_SERVER', "http://localhost:8001/hash" . sha1($CFG->wwwroot));
    ```
 
+### Moodle Docker
+The [Moodle Docker](https://github.com/moodlehq/moodle-docker) testing environment contains in-built support for running and
+configuring the mock server (since [#241](https://github.com/moodlehq/moodle-docker/pull/241)).
+
+In order to do so, simply export the `MOODLE_DOCKER_BBB_MOCK` environment variable prior to starting the containers.
+
 ## More information
 All endpoints must be prefixed with a serverID to allow for parallel runs, for example:
 
