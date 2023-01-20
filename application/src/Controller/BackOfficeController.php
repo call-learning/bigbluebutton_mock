@@ -8,6 +8,7 @@ use App\Entity\Attendee;
 use App\Entity\Event;
 use App\Entity\Meeting;
 use App\Entity\Recording;
+use App\Entity\Settings;
 use Firebase\JWT\JWT;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Response;
@@ -429,6 +430,34 @@ class BackOfficeController extends DataController
     }
 
     /**
+     * @Route("/set", name="setBackofficeValue")
+     */
+    public function setBackofficeValue(string $serverID, Request $request): XmlResponse
+    {
+        $entity = $this->getDoctrine()
+            ->getRepository(Settings::class)
+            ->findOneBy([
+                'serverID' => $serverID,
+            ]);
+        $name = $request->get('name');
+        $value = $request->get('value');
+        $entityManager = $this->getDoctrine()->getManager();
+        if (empty($entity)) {
+            $setting = new Settings();
+            $setting->setName($name);
+            $setting->setServerID($serverID);
+            $setting->setValue($value);
+        } else {
+            $setting = $entity;
+            $setting->setValue($value);
+        }
+        $entityManager->persist($setting);
+        $entityManager->flush();
+
+        return new XmlResponse((object)['setup' => [$name => $value]]);
+    }
+
+    /**
      * @Route("/reset", name="backOfficeReset")
      */
     public function backOfficeReset(string $serverID): XmlResponse
@@ -437,6 +466,7 @@ class BackOfficeController extends DataController
             Attendee::class,
             Recording::class,
             Meeting::class,
+            Settings::class
         ];
 
         $entityManager = $this->getDoctrine()->getManager();

@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/{serverID}/api")
  */
-class ApiController extends DataController
+class ApiController extends DataController implements CheckSumController
 {
     /**
      * @Route("", name="status")
@@ -324,4 +324,5 @@ class ApiController extends DataController
             'updated' => true,
         ]);
     }
+
 }
