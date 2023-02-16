@@ -109,10 +109,18 @@ class Recording
             'startTime' => $this->startTime->format('Uu') / 1000,
             'endTime' => $this->endTime->format('Uu') / 1000,
             'participants' => $this->participants,
-            'playback' => $this->getPlayback(),
+            'playback' => [],
             'metadata' => $this->getMetadata(),
             'isBreakout' => $this->isBreakout()
         ];
+        // Transform playbacks.
+        if ($playbacks = $this->getPlayback()) {
+            $formatarray = $playbacks['format'] ?? [];
+            $recordingInfo['playback'] = (object) [
+                'forcexmlarraytype' => 'format',
+                'array' => $formatarray
+            ];
+        }
         if ($this->getMeeting()->hasSubMeetings()) {
             $breakoutRooms = [];
             foreach($this->getMeeting()->getChildMeetings() as $childMeeting) {

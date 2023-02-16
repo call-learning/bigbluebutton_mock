@@ -209,6 +209,10 @@ class BackOfficeController extends DataController
             $recording->setEndTime(new \DateTime("@" . $request->query->get('endTime')));
         }
 
+        if ($request->query->has('playback')) {
+            $recording->setPlayback(json_decode($request->query->get('playback'), true));
+        }
+
         $recording->setMetadata($this->getRecordingMetadataFromRequest($request));
 
         $entityManager = $this->getDoctrine()->getManager();
