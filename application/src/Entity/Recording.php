@@ -116,10 +116,7 @@ class Recording
         // Transform playbacks.
         if ($playbacks = $this->getPlayback()) {
             $formatarray = $playbacks['format'] ?? [];
-            $recordingInfo['playback'] = (object) [
-                'forcexmlarraytype' => 'format',
-                'array' => $formatarray
-            ];
+            $recordingInfo['playback'] = $formatarray;
         }
         if ($this->getMeeting()->hasSubMeetings()) {
             $breakoutRooms = [];
