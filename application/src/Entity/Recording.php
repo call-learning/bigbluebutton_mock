@@ -116,7 +116,15 @@ class Recording
         // Transform playbacks.
         if ($playbacks = $this->getPlayback()) {
             $formatarray = $playbacks['format'] ?? [];
-            $recordingInfo['playback'] = $formatarray;
+            // Backward compatibility here: format can just be an object or an array (sequential).
+            if (array_keys($formatarray) != array_keys(array_values($formatarray))) {
+                $recordingInfo['playback'] = $playbacks; // This is an object.
+            } else {
+                $recordingInfo['playback'] = (object)[
+                    'forcexmlarraytype' => 'format',
+                    'array' => $formatarray
+                ]; // This should be a sequential array.
+            }
         }
         if ($this->getMeeting()->hasSubMeetings()) {
             $breakoutRooms = [];
