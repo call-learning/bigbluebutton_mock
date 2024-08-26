@@ -87,7 +87,7 @@ class ApiController extends DataController implements CheckSumController
         'disableMic',
         'disablePrivateChat',
         'disablePublicChat',
-        'disableNote',
+        'disableNotes',
         'lockedLayout',
         'hideUserList',
         'lockOnJoin',

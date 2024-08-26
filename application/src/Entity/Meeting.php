@@ -73,7 +73,7 @@ class Meeting
     /**
      * @ORM\Column(type="boolean")
      */
-    private $disableNote= false;
+    private $disableNotes= false;
 
     /**
      * @ORM\Column(type="boolean")
